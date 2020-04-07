@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from "react";
 import moment from "moment";
-
 import { Line } from "react-chartjs-2";
+import "chartjs-plugin-zoom";
+
 import { WhatsAppMessage } from "../../models/whatsapp-message";
 
 export interface ChartProps {
@@ -78,14 +79,17 @@ export const Chart: FunctionComponent<ChartProps> = (props) => {
       display: true,
       text: "Messages over time.",
     },
-    pan: {
-      enabled: true,
-      mode: "x",
-      speed: 1,
-    },
-    zoom: {
-      enabled: true,
-      mode: "Date",
+    plugins: {
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: 'x'
+        },
+        zoom: {
+          enabled: true,
+          mode: 'x'
+        }
+      }
     },
     scales: {
       xAxes: [

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
+import "chartjs-plugin-zoom";
 
 import "./App.css";
 import "./pagination.css";
