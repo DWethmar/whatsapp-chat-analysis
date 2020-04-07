@@ -1,0 +1,15 @@
+.pagination {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+
+.pagination li {
+    margin: 0 5px;
+    list-style-type: none;
+}
+
+.pagination .active {
+    font-weight: bold;
+}

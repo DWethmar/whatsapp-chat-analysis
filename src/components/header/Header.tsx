@@ -2,8 +2,8 @@ import React from 'react';
 
 export const Header = () => {
     return (
-        <div>
-            Who
-        </div>
+        <h1>
+            WhatsApp Chat Analysis
+        </h1>
     );
 }

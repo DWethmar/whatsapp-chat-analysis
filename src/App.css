@@ -1,0 +1,36 @@
+.App {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.message {
+    display: flex;
+    padding: 10px 5px;
+}
+
+.message:nth-child(odd) {
+    background: #CCCCCC;
+}
+.message:nth-child(even) {
+    background: #DCDCDC;
+}
+
+.message__sender {
+    width: 165px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message__date-time {
+    width: 255px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message__message {
+    flex: 1;
+    overflow: hidden;
+    line-height: 1;
+}
