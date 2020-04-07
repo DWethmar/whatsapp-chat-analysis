@@ -109,7 +109,7 @@ function App() {
           </div>
         ))}
 
-        <Chart messages={pagesMessages} interval="minute"></Chart>
+        <Chart messages={messages} interval="day"></Chart>
     </div>
   );
 }
