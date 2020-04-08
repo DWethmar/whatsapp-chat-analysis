@@ -1,6 +1,5 @@
-import moment from "moment";
+import moment from 'moment'
 import { WhatsAppMessage } from "../models/whatsapp-message";
-
 
 /**
  * Read up to and including |maxlines| lines from |file|.

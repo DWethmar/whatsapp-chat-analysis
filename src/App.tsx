@@ -11,8 +11,10 @@ import { WhatsAppMessage } from "./models/whatsapp-message";
 import { bytesToSize } from "./utils/file";
 import { Chart } from "./components/chart/Chart";
 
+const parseArchiveWorker = new Worker(process.env.PUBLIC_URL + '/workers/parse-archive.js');
 
 const pageSize = 20;
+
 
 function App() {
   const [page, setPage] = useState<number>(0);
@@ -20,6 +22,19 @@ function App() {
   const [lines, setLines] = useState<string[]>();
 
   const [messages, setMessages] = useState<WhatsAppMessage[]>([]);
+
+  useEffect(() => {
+    parseArchiveWorker.addEventListener("message", (e: any) => {
+      console.log('[MAIN] MSG FROM WORKER: ', e)
+      setMessages(e.data)
+    }, false)
+  });
+
+  useEffect(() => {
+    if (Array.isArray(lines)) {
+      parseArchiveWorker.postMessage(lines)
+    }
+  }, [lines]);
 
   useEffect(() => {
     const lines: string[] = [];
@@ -40,14 +55,6 @@ function App() {
       );
     }
   }, [file]);
-
-  useEffect(() => {
-    if (Array.isArray(lines)) {
-      const messages = parseArchive(lines);
-      setMessages(messages);
-      console.log("Done", messages.length);
-    }
-  }, [lines]);
 
   const onPageChange = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected);
