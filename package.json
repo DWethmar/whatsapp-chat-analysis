@@ -2,6 +2,7 @@
   "name": "whatsapp-chat-analysis",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://dwethmar.github.io/whatsapp-chat-analysis/",
   "dependencies": {
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@testing-library/jest-dom": "^4.2.4",
@@ -25,10 +26,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && yarn run workers",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "workers": "rollup --config rollup.config.js worker/parse-archive.ts --file public/workers/parse-archive.js"
+    "workers": "rollup --config rollup.config.js worker/parse-archive.ts --file public/workers/parse-archive.js",
+    "deploy": "yarn run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,6 +50,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.2",
     "@types/react-paginate": "^6.2.1",
+    "gh-pages": "^2.2.0",
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-typescript2": "^0.27.0",
     "tslib": "^1.11.1",
