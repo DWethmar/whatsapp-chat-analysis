@@ -8,7 +8,7 @@ import { getColorFromIndex } from "../../utils/color";
 
 export interface ChartProps {
   messages: WhatsAppMessage[];
-  interval: "minute" | "hour" | "day";
+  interval: "minute" | "hour" | "day" | "month";
 }
 
 export const Chart: FunctionComponent<ChartProps> = (props) => {
@@ -20,7 +20,10 @@ export const Chart: FunctionComponent<ChartProps> = (props) => {
 
   const dataSet: Record<string, Record<string, number>> = {};
 
-  const dateFormat = "DD/MM/YYYY";
+  let useFormat = "";
+
+  const monthFormat = "MM/YYYY";
+  const dayFormat = "DD/MM/YYYY";
   const dateTimeFormat = "DD/MM/YYYY HH:mm";
 
   for (const message of messages) {
@@ -31,12 +34,19 @@ export const Chart: FunctionComponent<ChartProps> = (props) => {
         date = moment(message.dateTime)
           .startOf("minute")
           .format(dateTimeFormat);
+          useFormat = dateTimeFormat;
         break;
       case "hour":
         date = moment(message.dateTime).startOf("hour").format(dateTimeFormat);
+        useFormat = dateTimeFormat;
         break;
       case "day":
-        date = moment(message.dateTime).format(dateFormat);
+        date = moment(message.dateTime).format(dayFormat);
+        useFormat = dayFormat;
+        break;
+      case "month":
+        date = moment(message.dateTime).startOf("month").format(monthFormat);
+        useFormat = monthFormat;
         break;
     }
 
@@ -97,8 +107,7 @@ export const Chart: FunctionComponent<ChartProps> = (props) => {
         {
           type: "time",
           time: {
-            parser: props.interval === "day" ? dateFormat : dateTimeFormat,
-            // tooltipFormat: "ll",
+            parser: useFormat,
           },
           scaleLabel: {
             display: true,

@@ -102,16 +102,16 @@ function App() {
         </tbody>
       </table>
 
-      <hr />
+      <br />
+      <br />
 
-      <br />
-      <br />
+      <hr />
 
       <ReactPaginate
         previousLabel={"previous"}
         nextLabel={"next"}
         breakLabel={"..."}
-        breakClassName={"break-me"}
+        breakClassName={"break"}
         pageCount={Math.ceil(messages.length / pageSize)}
         forcePage={page}
         marginPagesDisplayed={2}
@@ -123,8 +123,12 @@ function App() {
 
       <hr />
 
+      <br />
+      <br />
+
+
       <MessageList messages={pagesMessages}></MessageList>
-      <Chart messages={messages} interval="day"></Chart>
+      <Chart messages={messages} interval="month"></Chart>
     </div>
   );
 }
