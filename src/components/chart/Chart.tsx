@@ -61,8 +61,6 @@ export const Chart: FunctionComponent<ChartProps> = (props) => {
     dataSet[message.sender][date]++;
   }
 
-  // console.log(dataSet);
-
   const data = {
     datasets: [
       ...Object.keys(dataSet).map((sender, i) => {

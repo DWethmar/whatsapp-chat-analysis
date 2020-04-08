@@ -13,6 +13,7 @@
     "@types/react-dom": "^16.9.0",
     "chart.js": "^2.9.3",
     "chartjs-plugin-zoom": "^0.7.5",
+    "google-palette": "^1.1.0",
     "moment": "^2.24.0",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",

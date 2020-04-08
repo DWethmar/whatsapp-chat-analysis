@@ -1,18 +1,7 @@
-export const colors = [
-    "red", 
-    "blue", 
-    "green", 
-    "yellow", 
-    "orange", 
-    "brown",
-    "purple",
-    "pink",
-    "darkturquoise",
-    "darkkhaki",
-    "slateblue",
-    "rosybrown",
-];
+const palette = require('google-palette');
+
+const colors = palette(['tol', 'qualitative'], 50, 0).map((c: string) => `#${c}`);
 
 export function getColorFromIndex(i: number) {
-    return colors[Math.ceil(i % colors.length)];
+    return colors[i % colors.length];
 }
