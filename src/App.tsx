@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
-import "chartjs-plugin-zoom";
 
 import "./App.css";
 import "./pagination.css";
@@ -11,6 +10,7 @@ import { parseArchive, readLines } from "./utils/archive";
 import { WhatsAppMessage } from "./models/whatsapp-message";
 import { bytesToSize } from "./utils/file";
 import { Chart } from "./components/chart/Chart";
+
 
 const pageSize = 20;
 

@@ -4,6 +4,7 @@ import { Line } from "react-chartjs-2";
 import "chartjs-plugin-zoom";
 
 import { WhatsAppMessage } from "../../models/whatsapp-message";
+import { getColorFromIndex } from "../../utils/color";
 
 export interface ChartProps {
   messages: WhatsAppMessage[];
@@ -62,7 +63,7 @@ export const Chart: FunctionComponent<ChartProps> = (props) => {
             y: s[1],
           })),
           fill: false,
-          borderColor: ["red", "blue", "green", "yellow"][i % 4],
+          borderColor: getColorFromIndex(i),
         };
       }),
     ],
