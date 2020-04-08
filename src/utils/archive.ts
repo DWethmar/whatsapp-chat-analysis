@@ -66,7 +66,7 @@ export function readLines(
   }
 }
 
-export function parseArchive(lines: string[]): WhatsAppMessage[] {
+export function parseArchive(lines: string[], process: (percentage: number) => void): WhatsAppMessage[] {
   const messages: WhatsAppMessage[] = [];
 
   let whatsAppMessage: WhatsAppMessage | null = null;
@@ -79,7 +79,7 @@ export function parseArchive(lines: string[]): WhatsAppMessage[] {
       const r = messageRegex.exec(line);
 
       if (r !== null) {
-        // ‎[30-03-2020 19:57:50] ananas
+        // ‎[30-03-2020 19:57:50] ananas: ananans
         const dateTime = moment(r[1], "DD-MM-YYYY HH:mm:ss");
 
         whatsAppMessage = {
@@ -95,7 +95,11 @@ export function parseArchive(lines: string[]): WhatsAppMessage[] {
         }
       }
     }
-  }
 
+    if (i % 1000 === 0) {
+      process(((i / lines.length) * 100));
+    }
+  }
+  process(100);
   return messages;
 }

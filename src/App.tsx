@@ -6,33 +6,48 @@ import "./pagination.css";
 
 import { Header } from "./components/header/Header";
 import { ArchiveUpload } from "./components/archive-upload/ArchiveUpload";
-import { parseArchive, readLines } from "./utils/archive";
+import { readLines } from "./utils/archive";
 import { WhatsAppMessage } from "./models/whatsapp-message";
 import { bytesToSize } from "./utils/file";
 import { Chart } from "./components/chart/Chart";
+import { MessageList } from "./components/message-list/MessageList";
 
-const parseArchiveWorker = new Worker(process.env.PUBLIC_URL + '/workers/parse-archive.js');
+const parseArchiveWorker = new Worker(
+  process.env.PUBLIC_URL + "/workers/parse-archive.js"
+);
 
-const pageSize = 20;
-
+const pageSize = 15;
 
 function App() {
   const [page, setPage] = useState<number>(0);
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<File | null>();
   const [lines, setLines] = useState<string[]>();
 
+  const [percentage, setPercentage] = useState<number>(0);
   const [messages, setMessages] = useState<WhatsAppMessage[]>([]);
 
+  const isLoading = () => percentage !== 100;
+
   useEffect(() => {
-    parseArchiveWorker.addEventListener("message", (e: any) => {
-      console.log('[MAIN] MSG FROM WORKER: ', e)
-      setMessages(e.data)
-    }, false)
+    const handler = (e: any) => {
+      if (e.data.hasOwnProperty("percentage")) {
+        setPercentage(Math.round(e.data.percentage));
+      }
+
+      if (e.data.hasOwnProperty("messages")) {
+        setMessages(e.data.messages);
+      }
+    };
+    parseArchiveWorker.addEventListener("message", handler, false);
+    return () => parseArchiveWorker.removeEventListener("message", handler);
   });
 
   useEffect(() => {
     if (Array.isArray(lines)) {
-      parseArchiveWorker.postMessage(lines)
+      setPage(0);
+      setPercentage(0);
+      setMessages([]);
+      parseArchiveWorker.postMessage(lines);
     }
   }, [lines]);
 
@@ -42,9 +57,7 @@ function App() {
       readLines(
         file,
         1000000000,
-        (line) => {
-          lines.push(line);
-        },
+        (line) => lines.push(line),
         (error) => {
           if (error) {
             throw error;
@@ -60,7 +73,9 @@ function App() {
     setPage(selectedItem.selected);
   };
 
-  const pagesMessages = messages.slice(page * pageSize, page * pageSize + pageSize);
+  const pagesMessages = isLoading()
+    ? []
+    : messages.slice(page * pageSize, page * pageSize + pageSize);
 
   return (
     <div className="App">
@@ -78,6 +93,7 @@ function App() {
           <tr>
             <td>Messages:</td>
             <td>{messages.length}</td>
+            <td>&nbsp; {percentage}%</td>
           </tr>
           <tr>
             <td>Current page:</td>
@@ -97,27 +113,18 @@ function App() {
         breakLabel={"..."}
         breakClassName={"break-me"}
         pageCount={Math.ceil(messages.length / pageSize)}
+        forcePage={page}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={onPageChange}
         containerClassName={"pagination"}
-        // subContainerClassName={'pages pagination'}
         activeClassName={"active"}
       />
 
       <hr />
 
-      {pagesMessages.map((m, i) => (
-          <div className="message" key={i}>
-            <div className="message__sender">{m.sender}</div>
-            <div className="message__date-time">
-              {m.dateTime.toLocaleString()}
-            </div>
-            <div className="message__message">{m.message}</div>
-          </div>
-        ))}
-
-        <Chart messages={messages} interval="day"></Chart>
+      <MessageList messages={pagesMessages}></MessageList>
+      <Chart messages={messages} interval="day"></Chart>
     </div>
   );
 }
