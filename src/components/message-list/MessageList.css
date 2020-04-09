@@ -28,7 +28,7 @@
 }
 
 .message__date-time {
-    width: 255px;
+    width: 180px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
