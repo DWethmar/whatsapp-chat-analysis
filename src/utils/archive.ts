@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { WhatsAppMessage } from "../models/whatsapp-message";
+import { WhatsAppMessage } from "../models/whatsappMessage";
 
 /**
  * Read up to and including |maxlines| lines from |file|.
@@ -70,8 +70,8 @@ export function parseArchive(lines: string[], process: (percentage: number) => v
   const messages: WhatsAppMessage[] = [];
 
   let whatsAppMessage: WhatsAppMessage | null = null;
-  const messageRegex = /\[(\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}:\d{2})]\s([^:]+):\s(.*)/;
-
+  const messageRegex = /\[(\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}:\d{2})]\s(?:([^:]+):\s)?(.*)/;
+  
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
@@ -84,9 +84,9 @@ export function parseArchive(lines: string[], process: (percentage: number) => v
 
         whatsAppMessage = {
           dateTime: dateTime.toDate(),
-          sender: r[2],
+          sender: r[2] || "Whatsapp",
           message: r[3],
-          media: false,
+          isWhatsApp: r[2] === undefined,
         };
         messages.push(whatsAppMessage);
       } 

@@ -6,9 +6,9 @@ import "./pagination.css";
 import { Header } from "./components/header/Header";
 import { ArchiveUpload } from "./components/archive-upload/ArchiveUpload";
 import { readLines } from "./utils/archive";
-import { WhatsAppMessage } from "./models/whatsapp-message";
+import { WhatsAppMessage } from "./models/whatsappMessage";
 import { bytesToSize } from "./utils/file";
-import { Chart } from "./components/chart/Chart";
+import { MessageChart } from "./components/message-chart/MessageChart";
 import { MessageList } from "./components/message-list/MessageList";
 
 const parseArchiveWorker = new Worker(
@@ -32,6 +32,7 @@ function App() {
         setMessages(e.data.messages);
       }
     };
+
     parseArchiveWorker.addEventListener("message", handler, false);
     return () => parseArchiveWorker.removeEventListener("message", handler);
   });
@@ -87,7 +88,7 @@ function App() {
       {percentage === 100 && messages.length > 0 && (
         <>
           <MessageList messages={messages}></MessageList>
-          <Chart messages={messages} interval="month"></Chart>
+          <MessageChart messages={messages} interval="month"></MessageChart>
         </>
       )}
     </div>

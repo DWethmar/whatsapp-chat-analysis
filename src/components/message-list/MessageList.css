@@ -22,6 +22,11 @@
     text-overflow: ellipsis;
 }
 
+.message__sender--whatsapp {
+    color: #075E54;
+    font-weight: bold;
+}
+
 .message__date-time {
     width: 255px;
     white-space: nowrap;

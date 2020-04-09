@@ -3,15 +3,15 @@ import moment from "moment";
 import { Line } from "react-chartjs-2";
 import "chartjs-plugin-zoom";
 
-import { WhatsAppMessage } from "../../models/whatsapp-message";
+import { WhatsAppMessage } from "../../models/whatsappMessage";
 import { getColorFromIndex } from "../../utils/color";
 
-export interface ChartProps {
+export interface MessageChartProps {
   messages: WhatsAppMessage[];
   interval: "minute" | "hour" | "day" | "month";
 }
 
-export const Chart: FunctionComponent<ChartProps> = (props) => {
+export const MessageChart: FunctionComponent<MessageChartProps> = (props) => {
   const messages = props.messages;
 
   if (!Array.isArray(messages) || messages.length === 0) {
@@ -71,7 +71,7 @@ export const Chart: FunctionComponent<ChartProps> = (props) => {
             y: s[1],
           })),
           fill: false,
-          borderColor: getColorFromIndex(i),
+          borderColor: sender === "Whatsapp" ? "#075E54" : getColorFromIndex(i),
         };
       }),
     ],
