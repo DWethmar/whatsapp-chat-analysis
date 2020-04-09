@@ -6,9 +6,10 @@ import "chartjs-plugin-zoom";
 import { WhatsAppMessage } from "../../models/whatsappMessage";
 import { getColorFromIndex } from "../../utils/color";
 
+export type Interval = "minute" | "hour" | "day" | "week" | "month";
 export interface MessageChartProps {
   messages: WhatsAppMessage[];
-  interval: "minute" | "hour" | "day" | "month";
+  interval: Interval;
 }
 
 export const MessageChart: FunctionComponent<MessageChartProps> = (props) => {
@@ -44,8 +45,12 @@ export const MessageChart: FunctionComponent<MessageChartProps> = (props) => {
         date = moment(message.dateTime).format(dayFormat);
         useFormat = dayFormat;
         break;
+      case "week":
+        date = moment(message.dateTime).startOf("week").format(dayFormat);
+        useFormat = dayFormat;
+        break;  
       case "month":
-        date = moment(message.dateTime).startOf("month").format(monthFormat);
+        date = moment(message.dateTime).format(monthFormat);
         useFormat = monthFormat;
         break;
     }
@@ -77,8 +82,11 @@ export const MessageChart: FunctionComponent<MessageChartProps> = (props) => {
     ],
   };
 
+  console.log(data);
+
   const options = {
     responsive: true,
+    animation: false,
     elements: {
       line: {
         tension: 0,
