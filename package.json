@@ -19,8 +19,9 @@
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
-    "react-paginate": "^6.3.2",
     "react-scripts": "3.4.1",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.5",
     "rollup": "^2.3.4",
     "typescript": "^3.8.3"
   },
@@ -50,9 +51,9 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.2",
-    "@types/react-paginate": "^6.2.1",
+    "@types/react-virtualized-auto-sizer": "^1.0.0",
+    "@types/react-window": "^1.8.1",
     "gh-pages": "^2.2.0",
-    "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-typescript2": "^0.27.0",
     "tslib": "^1.11.1",
     "worker-loader": "^2.0.0"

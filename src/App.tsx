@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
 
 import "./App.css";
 import "./pagination.css";
@@ -16,17 +15,12 @@ const parseArchiveWorker = new Worker(
   process.env.PUBLIC_URL + "/workers/parse-archive.js"
 );
 
-const pageSize = 15;
-
 function App() {
-  const [page, setPage] = useState<number>(0);
   const [file, setFile] = useState<File | null>();
   const [lines, setLines] = useState<string[]>();
 
   const [percentage, setPercentage] = useState<number>(0);
   const [messages, setMessages] = useState<WhatsAppMessage[]>([]);
-
-  const isLoading = () => percentage !== 100;
 
   useEffect(() => {
     const handler = (e: any) => {
@@ -44,7 +38,6 @@ function App() {
 
   useEffect(() => {
     if (Array.isArray(lines)) {
-      setPage(0);
       setPercentage(0);
       setMessages([]);
       parseArchiveWorker.postMessage(lines);
@@ -69,14 +62,6 @@ function App() {
     }
   }, [file]);
 
-  const onPageChange = (selectedItem: { selected: number }) => {
-    setPage(selectedItem.selected);
-  };
-
-  const pagesMessages = isLoading()
-    ? []
-    : messages.slice(page * pageSize, page * pageSize + pageSize);
-
   return (
     <div className="App">
       <Header></Header>
@@ -95,39 +80,12 @@ function App() {
             <td>{messages.length}</td>
             <td>&nbsp; {percentage}%</td>
           </tr>
-          <tr>
-            <td>Current page:</td>
-            <td>{page + 1}</td>
-          </tr>
         </tbody>
       </table>
 
-      <br />
-      <br />
-
       <hr />
 
-      <ReactPaginate
-        previousLabel={"previous"}
-        nextLabel={"next"}
-        breakLabel={"..."}
-        breakClassName={"break"}
-        pageCount={Math.ceil(messages.length / pageSize)}
-        forcePage={page}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={onPageChange}
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-      />
-
-      <hr />
-
-      <br />
-      <br />
-
-
-      <MessageList messages={pagesMessages}></MessageList>
+      <MessageList messages={messages}></MessageList>
       <Chart messages={messages} interval="month"></Chart>
     </div>
   );
