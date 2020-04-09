@@ -24,24 +24,26 @@ export const MessageList: React.FunctionComponent<MessageListProps> = (
   }) => {
     const message = props.messages[index];
     return (
-      <div style={style} className="message" key={index}>
-        <div className="message__sender">{message.sender}</div>
-        <div className="message__date-time">
-          {message.dateTime.toLocaleString()}
+      <div style={style} key={index} className="message-list__row">
+        <div className={"message" + (index % 2 == 0 ? " even" : " odd")}>
+          <div className="message__sender">{message.sender}</div>
+          <div className="message__date-time">
+            {message.dateTime.toLocaleString()}
+          </div>
+          <div className="message__message">{message.message}</div>
         </div>
-        <div className="message__message">{message.message}</div>
       </div>
     );
   };
 
   return (
-    <div className="message-list" >
+    <div className="message-list">
       <AutoSizer>
         {({ height, width }) => (
           <List
             height={height}
             itemCount={props.messages.length}
-            itemSize={35}
+            itemSize={40}
             width={width}
           >
             {Row}

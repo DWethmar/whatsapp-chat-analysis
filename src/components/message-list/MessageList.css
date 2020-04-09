@@ -7,10 +7,10 @@
     padding: 10px 5px;
 }
 
-.message:nth-child(odd) {
+.message.odd {
     background: #CCCCCC;
 }
-.message:nth-child(even) {
+.message.even {
     background: #DCDCDC;
 }
 
