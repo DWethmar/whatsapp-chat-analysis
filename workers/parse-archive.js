@@ -4611,7 +4611,7 @@ var moment = createCommonjsModule(function (module, exports) {
 function parseArchive(lines, process) {
     var messages = [];
     var whatsAppMessage = null;
-    var messageRegex = /\[(\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}:\d{2})]\s([^:]+):\s(.*)/;
+    var messageRegex = /\[(\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}:\d{2})]\s(?:([^:]+):\s)?(.*)/;
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i];
         if (messageRegex.test(line)) {
@@ -4621,19 +4621,20 @@ function parseArchive(lines, process) {
                 var dateTime = moment(r[1], "DD-MM-YYYY HH:mm:ss");
                 whatsAppMessage = {
                     dateTime: dateTime.toDate(),
-                    sender: r[2],
+                    sender: r[2] || "Whatsapp",
                     message: r[3],
-                    media: false,
+                    isWhatsApp: r[2] === undefined,
                 };
                 messages.push(whatsAppMessage);
             }
-            else {
-                if (whatsAppMessage) {
-                    whatsAppMessage.message += line;
-                }
+        }
+        else {
+            if (whatsAppMessage) {
+                whatsAppMessage.message += line;
             }
         }
-        if (i % 1000 === 0) {
+        // Only report every 1000 lines and do that lines / 1000 times.
+        if (i % Math.round(lines.length / 1000) * 1000 === 0) {
             process(((i / lines.length) * 100));
         }
     }
