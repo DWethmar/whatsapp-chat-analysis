@@ -5,6 +5,7 @@
 .message {
     display: flex;
     padding: 10px 5px;
+    height: 100%;
 }
 
 .message.odd {
@@ -32,4 +33,8 @@
     flex: 1;
     overflow: hidden;
     line-height: 1;
+}
+
+.message__message p {
+    margin: 0 0 13px;
 }

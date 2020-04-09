@@ -10,8 +10,6 @@ export interface MessageListProps {
   messages: WhatsAppMessage[];
 }
 
-// https://react-window.now.sh/#/examples/list/scroll-to-item
-
 export const MessageList: React.FunctionComponent<MessageListProps> = (
   props
 ) => {
@@ -25,12 +23,16 @@ export const MessageList: React.FunctionComponent<MessageListProps> = (
     const message = props.messages[index];
     return (
       <div style={style} key={index} className="message-list__row">
-        <div className={"message" + (index % 2 == 0 ? " even" : " odd")}>
+        <div className={"message" + (index % 2 === 0 ? " even" : " odd")}>
           <div className="message__sender">{message.sender}</div>
           <div className="message__date-time">
             {message.dateTime.toLocaleString()}
           </div>
-          <div className="message__message">{message.message}</div>
+          <div className="message__message" title={message.message}>
+            {message.message.split("\n").map((item, i) => {
+              return <p key={i}>{item}</p>;
+            })}
+          </div>
         </div>
       </div>
     );

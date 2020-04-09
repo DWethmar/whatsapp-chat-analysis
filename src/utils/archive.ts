@@ -89,14 +89,15 @@ export function parseArchive(lines: string[], process: (percentage: number) => v
           media: false,
         };
         messages.push(whatsAppMessage);
-      } else {
-        if (whatsAppMessage) {
-          whatsAppMessage.message += line;
-        }
+      } 
+    } else {
+      if (whatsAppMessage) {
+        whatsAppMessage.message += line;
       }
     }
 
-    if (i % 1000 === 0) {
+    // Only report every 1000 lines and do that lines / 1000 times.
+    if (i % Math.round(lines.length / 1000) * 1000 === 0) {
       process(((i / lines.length) * 100));
     }
   }

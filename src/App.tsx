@@ -84,9 +84,12 @@ function App() {
       </table>
 
       <hr />
-
-      <MessageList messages={messages}></MessageList>
-      <Chart messages={messages} interval="month"></Chart>
+      {percentage === 100 && messages.length > 0 && (
+        <>
+          <MessageList messages={messages}></MessageList>
+          <Chart messages={messages} interval="month"></Chart>
+        </>
+      )}
     </div>
   );
 }
