@@ -8,11 +8,15 @@
     height: 100%;
 }
 
-.message.odd {
+.message--odd {
     background: #CCCCCC;
 }
-.message.even {
+.message--even {
     background: #DCDCDC;
+}
+
+.message--selected {
+    color: green;
 }
 
 .message__sender {

@@ -13,6 +13,8 @@ import {
   Interval,
 } from "./components/message-chart/MessageChart";
 import { MessageList } from "./components/message-list/MessageList";
+import { Search } from "./components/search/Search";
+import { SearchResult } from "./components/search/SearchResult";
 
 const parseArchiveWorker = new Worker(
   process.env.PUBLIC_URL + "/workers/parse-archive.js"
@@ -25,6 +27,7 @@ function App() {
   const [percentage, setPercentage] = useState<number>(0);
   const [messages, setMessages] = useState<WhatsAppMessage[]>([]);
   const [interval, setInterval] = useState<Interval>("month");
+  const [searchResult, setSearchResult] = useState<number[]>([]);
 
   useEffect(() => {
     const handler = (e: any) => {
@@ -45,6 +48,7 @@ function App() {
     if (Array.isArray(lines)) {
       setPercentage(0);
       setMessages([]);
+      setSearchResult([]);
       parseArchiveWorker.postMessage(lines);
     }
   }, [lines]);
@@ -70,6 +74,9 @@ function App() {
   return (
     <div className="App">
       <Header></Header>
+
+      <hr />
+
       <ArchiveUpload setFile={setFile}></ArchiveUpload>
 
       <br />
@@ -77,7 +84,7 @@ function App() {
       <table>
         <tbody>
           <tr>
-            <td>file size:</td>
+            <td>Size:</td>
             <td>{!!file ? bytesToSize(file.size) : 0}</td>
           </tr>
           <tr>
@@ -89,15 +96,33 @@ function App() {
       </table>
 
       <hr />
+
       {percentage === 100 && messages.length > 0 && (
         <>
-          <MessageList messages={messages}></MessageList>
+          <Search
+            messages={messages}
+            searchResult={(result) => setSearchResult(result)}
+          ></Search>
+
+          <SearchResult messageIndexes={searchResult}></SearchResult>
 
           <hr />
 
-          <select value={interval} onChange={(e) => setInterval(e.target.value as Interval)}>
+          <MessageList
+            messages={messages}
+            highlighted={searchResult}
+          ></MessageList>
+
+          <hr />
+
+          <select
+            value={interval}
+            onChange={(e) => setInterval(e.target.value as Interval)}
+          >
             {["day", "week", "month"].map((v, i) => (
-              <option value={v}>{v}</option>
+              <option key={i} value={v}>
+                {v}
+              </option>
             ))}
           </select>
 
