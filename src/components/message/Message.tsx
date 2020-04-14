@@ -1,24 +1,17 @@
 import React from "react";
 
+import "./Message.css";
+
 import { WhatsAppMessage } from "../../models/whatsappMessage";
 
 export interface MessageProps {
   message: WhatsAppMessage;
-  highlighted: boolean;
-  index: number;
 }
 
 export const Message: React.FunctionComponent<MessageProps> = (props) => {
-  const { index, message, highlighted } = props;
+  const { message } = props;
   return (
-    <div
-      className={
-        "message" +
-        " message--" +
-        (index % 2 === 0 ? "even" : "odd") +
-        (highlighted ? " message--selected" : "")
-      }
-    >
+    <div className="message">
       <div
         className={
           "message__sender" +

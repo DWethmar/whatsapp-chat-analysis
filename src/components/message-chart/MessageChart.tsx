@@ -82,8 +82,6 @@ export const MessageChart: FunctionComponent<MessageChartProps> = (props) => {
     ],
   };
 
-  console.log(data);
-
   const options = {
     responsive: true,
     animation: false,

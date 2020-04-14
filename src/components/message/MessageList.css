@@ -1,0 +1,19 @@
+.message-list {
+    height: 500px;
+}
+
+.message-list-row {
+    display: flex;
+}
+
+.message-list-row .message {
+    flex: 1;
+    overflow: hidden;
+}
+
+.message-list-row--odd {
+    background: #CCCCCC;
+}
+.message-list-row--even {
+    background: #DCDCDC;
+}

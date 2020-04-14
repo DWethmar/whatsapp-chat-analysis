@@ -12,9 +12,7 @@ import {
   MessageChart,
   Interval,
 } from "./components/message-chart/MessageChart";
-import { MessageList } from "./components/message-list/MessageList";
-import { Search } from "./components/search/Search";
-import { SearchResult } from "./components/search/SearchResult";
+import { Chat } from "./components/chat/Chat";
 
 const parseArchiveWorker = new Worker(
   process.env.PUBLIC_URL + "/workers/parse-archive.js"
@@ -27,7 +25,6 @@ function App() {
   const [percentage, setPercentage] = useState<number>(0);
   const [messages, setMessages] = useState<WhatsAppMessage[]>([]);
   const [interval, setInterval] = useState<Interval>("month");
-  const [searchResult, setSearchResult] = useState<number[]>([]);
 
   useEffect(() => {
     const handler = (e: any) => {
@@ -48,7 +45,6 @@ function App() {
     if (Array.isArray(lines)) {
       setPercentage(0);
       setMessages([]);
-      setSearchResult([]);
       parseArchiveWorker.postMessage(lines);
     }
   }, [lines]);
@@ -81,16 +77,15 @@ function App() {
 
       <br />
 
-      <span>Loading: &nbsp; {percentage}%</span>
-
-      <br />
-      <br />
-
       <table>
         <tbody>
           <tr>
             <td>Size:</td>
             <td>{!!file ? bytesToSize(file.size) : 0}</td>
+          </tr>
+          <tr>
+            <td>Loading:</td>
+            <td>{percentage}%</td>
           </tr>
           <tr>
             <td>Messages:</td>
@@ -103,19 +98,8 @@ function App() {
 
       {percentage === 100 && messages.length > 0 && (
         <>
-          <Search
-            messages={messages}
-            searchResult={(result) => setSearchResult(result)}
-          ></Search>
 
-          <SearchResult messageIndexes={searchResult}></SearchResult>
-
-          <hr />
-
-          <MessageList
-            messages={messages}
-            highlighted={searchResult}
-          ></MessageList>
+          <Chat messages={messages} />
 
           <hr />
 
