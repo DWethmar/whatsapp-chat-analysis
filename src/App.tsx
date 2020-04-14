@@ -81,6 +81,11 @@ function App() {
 
       <br />
 
+      <span>Loading: &nbsp; {percentage}%</span>
+
+      <br />
+      <br />
+
       <table>
         <tbody>
           <tr>
@@ -90,7 +95,6 @@ function App() {
           <tr>
             <td>Messages:</td>
             <td>{messages.length}</td>
-            <td>&nbsp; {percentage}%</td>
           </tr>
         </tbody>
       </table>
