@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import moment from "moment";
 import { Line } from "react-chartjs-2";
 import "chartjs-plugin-zoom";
@@ -6,14 +6,16 @@ import "chartjs-plugin-zoom";
 import { WhatsAppMessage } from "../../models/whatsappMessage";
 import { getColorFromIndex } from "../../utils/color";
 
-export type Interval = "minute" | "hour" | "day" | "week" | "month";
+type Interval = "minute" | "hour" | "day" | "week" | "month";
+
 export interface MessageChartProps {
   messages: WhatsAppMessage[];
-  interval: Interval;
 }
 
 export const MessageChart: FunctionComponent<MessageChartProps> = (props) => {
   const messages = props.messages;
+
+  const [interval, setInterval] = useState<Interval>("month");
 
   if (!Array.isArray(messages) || messages.length === 0) {
     return <span>Chart has no data.</span>;
@@ -30,12 +32,12 @@ export const MessageChart: FunctionComponent<MessageChartProps> = (props) => {
   for (const message of messages) {
     let date: string = "";
 
-    switch (props.interval) {
+    switch (interval) {
       case "minute":
         date = moment(message.dateTime)
           .startOf("minute")
           .format(dateTimeFormat);
-          useFormat = dateTimeFormat;
+        useFormat = dateTimeFormat;
         break;
       case "hour":
         date = moment(message.dateTime).startOf("hour").format(dateTimeFormat);
@@ -48,7 +50,7 @@ export const MessageChart: FunctionComponent<MessageChartProps> = (props) => {
       case "week":
         date = moment(message.dateTime).startOf("week").format(dayFormat);
         useFormat = dayFormat;
-        break;  
+        break;
       case "month":
         date = moment(message.dateTime).format(monthFormat);
         useFormat = monthFormat;
@@ -98,13 +100,13 @@ export const MessageChart: FunctionComponent<MessageChartProps> = (props) => {
       zoom: {
         pan: {
           enabled: true,
-          mode: 'x'
+          mode: "x",
         },
         zoom: {
           enabled: true,
-          mode: 'x'
-        }
-      }
+          mode: "x",
+        },
+      },
     },
     scales: {
       xAxes: [
@@ -134,5 +136,19 @@ export const MessageChart: FunctionComponent<MessageChartProps> = (props) => {
     },
   };
 
-  return <Line data={data} options={options}></Line>;
+  return (
+    <div>
+      <select
+        value={interval}
+        onChange={(e) => setInterval(e.target.value as Interval)}
+      >
+        {["day", "week", "month"].map((v, i) => (
+          <option key={i} value={v}>
+            {v}
+          </option>
+        ))}
+      </select>
+      <Line data={data} options={options}></Line>
+    </div>
+  );
 };

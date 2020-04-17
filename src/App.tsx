@@ -8,11 +8,9 @@ import { ArchiveUpload } from "./components/archive-upload/ArchiveUpload";
 import { readLines } from "./utils/archive";
 import { WhatsAppMessage } from "./models/whatsappMessage";
 import { bytesToSize } from "./utils/file";
-import {
-  MessageChart,
-  Interval,
-} from "./components/message-chart/MessageChart";
+import { MessageChart } from "./components/message-chart/MessageChart";
 import { Chat } from "./components/chat/Chat";
+import { MessagePie } from "./components/message-pie/MessagePie";
 
 const parseArchiveWorker = new Worker(
   process.env.PUBLIC_URL + "/workers/parse-archive.js"
@@ -24,7 +22,6 @@ function App() {
 
   const [percentage, setPercentage] = useState<number>(0);
   const [messages, setMessages] = useState<WhatsAppMessage[]>([]);
-  const [interval, setInterval] = useState<Interval>("month");
 
   useEffect(() => {
     const handler = (e: any) => {
@@ -98,23 +95,15 @@ function App() {
 
       {percentage === 100 && messages.length > 0 && (
         <>
-
           <Chat messages={messages} />
 
           <hr />
 
-          <select
-            value={interval}
-            onChange={(e) => setInterval(e.target.value as Interval)}
-          >
-            {["day", "week", "month"].map((v, i) => (
-              <option key={i} value={v}>
-                {v}
-              </option>
-            ))}
-          </select>
+          <MessageChart messages={messages}></MessageChart>
 
-          <MessageChart messages={messages} interval={interval}></MessageChart>
+          <hr />
+
+          <MessagePie messages={messages}></MessagePie>
         </>
       )}
     </div>
