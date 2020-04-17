@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7c3eb6f38602f67d1c1ac8963b4c02da",
+    "revision": "82b91ca7b6bd015eb573815d11279d0a",
     "url": "/whatsapp-chat-analysis/index.html"
   },
   {
-    "revision": "87f64fe3d175dc1942cf",
+    "revision": "6c3946125234ac13c027",
     "url": "/whatsapp-chat-analysis/static/css/main.24e3b65e.chunk.css"
   },
   {
-    "revision": "a9031eb9add3268473e9",
-    "url": "/whatsapp-chat-analysis/static/js/2.ae537475.chunk.js"
+    "revision": "b924d45ed15e11f62442",
+    "url": "/whatsapp-chat-analysis/static/js/2.b72a109f.chunk.js"
   },
   {
     "revision": "a6a0667e9a8e45a772cb481d44d6f626",
-    "url": "/whatsapp-chat-analysis/static/js/2.ae537475.chunk.js.LICENSE.txt"
+    "url": "/whatsapp-chat-analysis/static/js/2.b72a109f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "87f64fe3d175dc1942cf",
-    "url": "/whatsapp-chat-analysis/static/js/main.f21e3dc6.chunk.js"
+    "revision": "6c3946125234ac13c027",
+    "url": "/whatsapp-chat-analysis/static/js/main.6be51b53.chunk.js"
   },
   {
     "revision": "3ab79d87171c7dd96977",
