@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/whatsapp-chat-analysis/static/css/main.24e3b65e.chunk.css",
-    "main.js": "/whatsapp-chat-analysis/static/js/main.6be51b53.chunk.js",
-    "main.js.map": "/whatsapp-chat-analysis/static/js/main.6be51b53.chunk.js.map",
+    "main.js": "/whatsapp-chat-analysis/static/js/main.55a951d8.chunk.js",
+    "main.js.map": "/whatsapp-chat-analysis/static/js/main.55a951d8.chunk.js.map",
     "runtime-main.js": "/whatsapp-chat-analysis/static/js/runtime-main.b02445a8.js",
     "runtime-main.js.map": "/whatsapp-chat-analysis/static/js/runtime-main.b02445a8.js.map",
     "static/js/2.b72a109f.chunk.js": "/whatsapp-chat-analysis/static/js/2.b72a109f.chunk.js",
     "static/js/2.b72a109f.chunk.js.map": "/whatsapp-chat-analysis/static/js/2.b72a109f.chunk.js.map",
     "index.html": "/whatsapp-chat-analysis/index.html",
-    "precache-manifest.517ae70654f41a7fba7933979aee2d2e.js": "/whatsapp-chat-analysis/precache-manifest.517ae70654f41a7fba7933979aee2d2e.js",
+    "precache-manifest.a4c2372615c2ccb4bda57c24cc5bf84f.js": "/whatsapp-chat-analysis/precache-manifest.a4c2372615c2ccb4bda57c24cc5bf84f.js",
     "service-worker.js": "/whatsapp-chat-analysis/service-worker.js",
     "static/css/main.24e3b65e.chunk.css.map": "/whatsapp-chat-analysis/static/css/main.24e3b65e.chunk.css.map",
     "static/js/2.b72a109f.chunk.js.LICENSE.txt": "/whatsapp-chat-analysis/static/js/2.b72a109f.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.b02445a8.js",
     "static/js/2.b72a109f.chunk.js",
     "static/css/main.24e3b65e.chunk.css",
-    "static/js/main.6be51b53.chunk.js"
+    "static/js/main.55a951d8.chunk.js"
   ]
 }
