@@ -7,7 +7,7 @@ export const Header = () => {
       <p>Upload a Whatsapp chat archive to view the messages and stats.</p>
       <p>
         Everything is done in the browser, so no data is sent to a server and
-        the data is not stored anywhere. But don't use this if you have
+        the data is not stored anywhere. But don't use this if you have{" "}
         <b>any</b> privacy concerns.
       </p>
       <p>
